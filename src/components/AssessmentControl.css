@@ -1,0 +1,174 @@
+.assessment-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.control-section {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.start-button {
+  padding: 10px 30px;
+  font-size: 16px;
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.start-button:hover {
+  background-color: #1976d2;
+}
+
+.start-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.videos-section {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+.score-section {
+  text-align: center;
+  margin: 20px 0;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+}
+
+.score-section h2 {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.score {
+  font-size: 36px;
+  font-weight: bold;
+  color: #2196f3;
+}
+
+.error-message {
+  text-align: center;
+  color: #d32f2f;
+  padding: 10px;
+  margin: 10px 0;
+  background-color: #ffebee;
+  border-radius: 4px;
+}
+
+.assessment-control {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+  text-align: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.videos-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.start-button-container {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.start-assessment-button {
+  padding: 12px 24px;
+  font-size: 16px;
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.start-assessment-button:hover {
+  background-color: #1976d2;
+}
+
+.start-assessment-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.upload-status {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.status-item {
+  padding: 8px 16px;
+  border-radius: 4px;
+  background-color: #f5f5f5;
+  color: #666;
+}
+
+.status-item.uploaded {
+  background-color: #f6ffed;
+  color: #52c41a;
+}
+
+@keyframes button-loading {
+  0% {
+    transform: translateY(-50%) rotate(0deg);
+  }
+  100% {
+    transform: translateY(-50%) rotate(360deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .upload-status {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+.video-container {
+  position: relative;
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.score-display {
+  margin: 20px 0;
+  font-size: 1.2em;
+  font-weight: bold;
+  text-align: center;
+}
+
+.assessment-status {
+  margin: 15px 0;
+  text-align: center;
+  color: #666;
+}
+
+.assessment-status p {
+  margin: 5px 0;
+} 
