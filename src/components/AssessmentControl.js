@@ -1,9 +1,11 @@
 import React, { useState, useCallback } from 'react';
 import VideoUploader from './VideoUploader';
 import VideoPlayer from './VideoPlayer';
+import VideoRecorder from './VideoRecorder';
+import FrameGallery from './FrameGallery';
 import './AssessmentControl.css';
 
-const AssessmentControl = () => {
+const AssessmentControl = ({ useRecorder = false }) => {
   const [standardVideo, setStandardVideo] = useState(null);
   const [exerciseVideo, setExerciseVideo] = useState(null);
   const [sessionId, setSessionId] = useState(null);
@@ -11,7 +13,13 @@ const AssessmentControl = () => {
   const [finalScore, setFinalScore] = useState(null);
   const [processingStatus, setProcessingStatus] = useState('');
   const [error, setError] = useState(null);
+  const [keyframeData, setKeyframeData] = useState([]);
 
+  const handleKeyframeUpdate = useCallback((data) => {
+    setKeyframeData(prevData => [...prevData, data]);
+    setError(null);
+  }, []);
+  
   const handleStandardUpload = useCallback((file) => {
     setStandardVideo(file);
     setError(null);
@@ -21,6 +29,11 @@ const AssessmentControl = () => {
     setExerciseVideo(file);
     setError(null);
   }, []);
+
+  const handleRecordingComplete = (recordedFile) => {
+    setExerciseVideo(recordedFile);
+    setError(null);
+  };
 
   const handleStartAssessment = async () => {
     if (!standardVideo || !exerciseVideo) {
@@ -75,22 +88,22 @@ const AssessmentControl = () => {
 
   return (
     <div className="assessment-container">
-      
-      <VideoUploader
-        onStandardUpload={handleStandardUpload}
-        onExerciseUpload={handleExerciseUpload}
-      />
-      
+      {/* 视频上传或录制 */}
+      {useRecorder ? (
+        <div className="upload-record-section">
+          <VideoUploader onStandardUpload={handleStandardUpload} exerciseDisabled={true}/>
+          <VideoRecorder onRecordingComplete={handleRecordingComplete} />
+        </div>) : (
+          <VideoUploader onStandardUpload={handleStandardUpload} onExerciseUpload={handleExerciseUpload}/>
+        )}
       <div className="control-section">
-        <button 
-          onClick={handleStartAssessment}
-          disabled={!standardVideo || !exerciseVideo || isProcessing}
-          className="start-button"
-        >
+        <button onClick={handleStartAssessment} disabled={!standardVideo || !exerciseVideo || isProcessing}
+          className="start-button">
           {isProcessing ? '处理中...' : '开始评估'}
         </button>
       </div>
 
+      {/* 视频播放器 */}
       {sessionId && (
         <div className="videos-section">
           <VideoPlayer
@@ -101,10 +114,12 @@ const AssessmentControl = () => {
             type="exercise"
             sessionId={sessionId}
             onScoreUpdate={handleScoreUpdate}
+            onKeyframeUpload={handleKeyframeUpdate}
           />
         </div>
       )}
 
+      {/* 评分显示 */}
       <div className="score-section">
         {processingStatus && (
           <div className="processing-status">
@@ -122,6 +137,8 @@ const AssessmentControl = () => {
       {error && (
         <div className="error-message">{error}</div>
       )}
+
+      {keyframeData && <FrameGallery keyframes={keyframeData} />}
     </div>
   );
 };

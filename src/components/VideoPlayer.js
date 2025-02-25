@@ -82,6 +82,10 @@ const VideoPlayer = ({ type, sessionId, onScoreUpdate }) => {
             // 处理网络连接候选
             await handleIceCandidate(message);
             break;
+          
+          case 'keyframe_update':
+            onKeyframeUpdate?.(message.data);
+            break;
 
           default:
             console.warn('未知消息类型:', message.type);

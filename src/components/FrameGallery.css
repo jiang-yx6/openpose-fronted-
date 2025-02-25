@@ -1,0 +1,14 @@
+.frame-gallery {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto; /* 允许垂直滚动 */
+  max-height: 80vh; /* 限制最大高度 */
+  border: 1px solid #ccc; /* 边框样式 */
+  padding: 10px; /* 内边距 */
+}
+
+.frame-image {
+  width: 100%; /* 自适应宽度 */
+  margin-bottom: 10px; /* 帧之间的间距 */
+  border-radius: 5px; /* 圆角 */
+} 

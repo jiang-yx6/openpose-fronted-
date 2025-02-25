@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './VideoUploader.css';
 
-const VideoUploader = ({ onStandardUpload, onExerciseUpload }) => {
+const VideoUploader = ({ onStandardUpload, onExerciseUpload, exerciseDisabled = false }) => {
   const [standardFile, setStandardFile] = useState(null);
   const [exerciseFile, setExerciseFile] = useState(null);
   const [error, setError] = useState(null);
@@ -65,28 +65,30 @@ const VideoUploader = ({ onStandardUpload, onExerciseUpload }) => {
           </label>
         </div>
         
-        <div className={`upload-box ${exerciseFile ? 'has-file' : ''}`}>
-          <h3>练习视频</h3>
-          <input
-            type="file"
-            accept="video/mp4,video/quicktime"
-            onChange={(e) => handleFileSelect(e.target.files[0], false)}
-            id="exercise-video"
-          />
-          <label htmlFor="exercise-video">
-            {exerciseFile ? (
-              <>
-                <span className="file-name">{exerciseFile.name}</span>
-                <span className="change-file">更换文件</span>
-              </>
-            ) : (
-              <>
-                <i className="upload-icon">+</i>
-                <span>选择文件</span>
-              </>
-            )}
-          </label>
-        </div>
+        {!exerciseDisabled && (
+          <div className={`upload-box ${exerciseFile ? 'has-file' : ''}`}>
+            <h3>练习视频</h3>
+            <input
+              type="file"
+              accept="video/mp4,video/quicktime"
+              onChange={(e) => handleFileSelect(e.target.files[0], false)}
+              id="exercise-video"
+            />
+            <label htmlFor="exercise-video">
+              {exerciseFile ? (
+                <>
+                  <span className="file-name">{exerciseFile.name}</span>
+                  <span className="change-file">更换文件</span>
+                </>
+              ) : (
+                <>
+                  <i className="upload-icon">+</i>
+                  <span>选择文件</span>
+                </>
+              )}
+            </label>
+          </div>
+        )}
       </div>
       
       {error && <div className="error-message">{error}</div>}
