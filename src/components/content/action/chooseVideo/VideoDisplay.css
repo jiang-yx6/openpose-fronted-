@@ -1,0 +1,106 @@
+.video-display-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+
+.video-smaller-show-left{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    justify-content: center;
+    align-items: center;
+    column-gap: 20px;
+    row-gap: 16px;
+    height: 100%;
+    width: 60%;
+    margin: 0 10px;
+    border-radius: 10px;
+    border: 3px solid #d3c8c8;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    padding: 15px 15px;
+    overflow-y: auto;
+    
+}
+
+.video-bigger-show-right{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 40%;
+    height: 100%;
+    border-radius: 10px;
+    border: 3px solid #d3c8c8;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    padding: 15px 15px;
+}
+
+.video-bigger-show-right-button{
+    width: 90%;
+    height: 100%;
+    margin-top: 10px;
+    border-radius: 10px;
+    border: 3px solid #d3c8c8;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    padding: 15px 15px;
+    color: #5b5858;    
+    font-size: 18px;
+}
+
+.video-bigger-show-right-button:hover{
+    background-color: #d3c8c8;
+    color: #fff;
+}
+
+.video-bigger-show-right-item{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.video-bigger-show-right-item img,
+.video-bigger-show-right-item video{
+    width: 90%;
+    height: 90%;
+    border-radius: 10px;
+}
+
+
+.video-display-item{
+    width: 100%;
+    height: 60%;
+}
+
+.video-display-item img,
+ video{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+.video-display-item h3{
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 5px;
+    margin-bottom: 0px;
+}
+
+.video-display-item p{
+    font-size: 16px;
+    color: #666;
+    margin-top: 4px;
+}
+
+.video-display-item:hover{
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+

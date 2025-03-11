@@ -1,17 +1,18 @@
 .video-uploader {
-  margin: 20px auto;
+  margin: 0 auto;
   max-width: 800px;
 }
 
 .upload-container {
   display: flex;
+  flex-direction: row;
   justify-content: center;
   gap: 40px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .upload-box {
-  width: 280px;
+  width: 40%;
   text-align: center;
   padding: 20px;
   border: 2px dashed #e0e0e0;
@@ -68,7 +69,13 @@
   word-break: break-all;
   max-width: 200px;
 }
-
+.file-info{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
 .change-file {
   font-size: 12px;
   color: #2196f3;
