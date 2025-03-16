@@ -2,7 +2,6 @@ import React, { useState, useCallback } from 'react';
 import VideoUploader from './VideoUploader';
 import VideoPlayer from './VideoPlayer';
 import VideoRecorder from './VideoRecorder';
-import FrameGallery from './FrameGallery';
 import './AssessmentControl.css';
 import EChart from './EChart';
 const AssessmentControl = ({ useRecorder = false }) => {
@@ -16,14 +15,14 @@ const AssessmentControl = ({ useRecorder = false }) => {
   const [finalScore, setFinalScore] = useState(null);
   const [processingStatus, setProcessingStatus] = useState('');
   const [error, setError] = useState(null);
-  const [keyframeData, setKeyframeData] = useState([]);
   const [frameScores, setFrameScores] = useState(null);
+  const [expandedImageIndex, setExpandedImageIndex] = useState(null);
 
 
-  const handleKeyframeUpdate = useCallback((data) => {
-    setKeyframeData(prevData => [...prevData, data]);
-    setError(null);
-  }, []);
+  // const handleKeyframeUpdate = useCallback((data) => {
+  //   setKeyframeData(prevData => [...prevData, data]);
+  //   setError(null);
+  // }, []);
   
   const handleStandardUpload = useCallback((file) => {
     setStandardVideo(file);
@@ -76,7 +75,7 @@ const AssessmentControl = ({ useRecorder = false }) => {
         exercise: exerciseBase64
       };
 
-      const response = await fetch('api/upload-videos/', {
+      const response = await fetch('https://yfvideo.hf.free4inno.com/upload-videos/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -94,12 +93,17 @@ const AssessmentControl = ({ useRecorder = false }) => {
       if (data.session_id) {
         // 对于 HLS 流，使用 m3u8 文件
         // 对于普通视频，使用 mp4 文件
-        setStandardVideoUrl(`http://127.0.0.1:8000${data.standard_video_hls}`);
-        setExerciseVideoUrl(`http://127.0.0.1:8000${data.exercise_video_hls}`);
-        setOverlapVideoUrl(`http://127.0.0.1:8000${data.overlap_video_hls}`);
-        setFrameScores(data.exercise_frame_scores);
+        setStandardVideoUrl(`https://yfvideo.hf.free4inno.com${data.standard_video_hls}`);
+        setExerciseVideoUrl(`https://yfvideo.hf.free4inno.com${data.exercise_video_hls}`);
+        setOverlapVideoUrl(`https://yfvideo.hf.free4inno.com${data.overlap_video_hls}`);
+        if(data.frame_scores && Object.keys(data.frame_scores).length > 0){
+          console.log('获取到帧得分');
+          setFrameScores(data.frame_scores);
+        }else{
+          console.log('没有获取到帧得分');
+        }
         data.exercise_worst_frames.forEach(frame => {
-          const imgUrl = `http://127.0.0.1:8000${frame}`;
+          const imgUrl = `https://yfvideo.hf.free4inno.com${frame}`;
           setWorstFramesList(prevList => [...prevList, imgUrl]);
         });
         // 如果需要访问 HLS 流，可以使用以下 URL
@@ -157,7 +161,7 @@ const AssessmentControl = ({ useRecorder = false }) => {
               type="exercise"
               hlsUrl={exerciseVideoUrl}
               onScoreUpdate={handleScoreUpdate}
-              onKeyframeUpload={handleKeyframeUpdate}
+              // onKeyframeUpload={handleKeyframeUpdate}
             />
             <VideoPlayer
               type="overlap"
@@ -185,14 +189,28 @@ const AssessmentControl = ({ useRecorder = false }) => {
           <div className="error-message">{error}</div>
         )}
 
-        {keyframeData && <FrameGallery keyframes={keyframeData}
-        />}
-
       
       </div>
       <div className="assessment-container-right">
               <EChart frameScores={frameScores}/>
           <div className="video-process-chart-worst-frames">
+            <h2>动作最差帧分析</h2>
+            <div className="worst-frames-container">
+                {worstFramesList.slice(0, 3).map((imgUrl, index) => (
+                    <div 
+                        key={index} 
+                        className={`worst-frame-item ${expandedImageIndex === index ? 'expanded' : ''}`}
+                    >
+                        <img 
+                            src={imgUrl} 
+                            alt={`最差帧 ${index + 1}`} 
+                            onClick={() => setExpandedImageIndex(expandedImageIndex === index ? null : index)}
+                            title="点击放大查看"
+                        />
+                        <div className="frame-label">第 {index + 1} 差帧</div>
+                    </div>
+                ))}
+            </div>
           </div>
       </div>
     </div>

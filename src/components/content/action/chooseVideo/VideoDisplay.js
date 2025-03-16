@@ -89,34 +89,34 @@ const VideoDisplay = () => {
        
     }
 
-    const handleMouseEnter = (id) =>{
-        const videoElement = videoRefs.current[id];
+    // const handleMouseEnter = (id) =>{
+    //     const videoElement = videoRefs.current[id];
 
-        if(videoElement){
-            videoElement.style.display='block';
-            videoElement.muted= true;
-            videoElement.play();
+    //     if(videoElement){
+    //         videoElement.style.display='block';
+    //         videoElement.muted= true;
+    //         videoElement.play();
 
-            const thumbnail = videoElement.previousElementSibling;
-            if(thumbnail){
-                thumbnail.style.display='none';
-            }
-        }
-    }
+    //         const thumbnail = videoElement.previousElementSibling;
+    //         if(thumbnail){
+    //             thumbnail.style.display='none';
+    //         }
+    //     }
+    // }
 
 
-    const handleMouseLeave = (id) =>{
-        const videoElement = videoRefs.current[id];
-        if(videoElement){
-            videoElement.style.display = 'none';
-            videoElement.pause();
-            // 显示缩略图
-            const thumbnail = videoElement.previousElementSibling;
-            if(thumbnail){
-                thumbnail.style.display = 'block';
-            }
-        }
-    }
+    // const handleMouseLeave = (id) =>{
+    //     const videoElement = videoRefs.current[id];
+    //     if(videoElement){
+    //         videoElement.style.display = 'none';
+    //         videoElement.pause();
+    //         // 显示缩略图
+    //         const thumbnail = videoElement.previousElementSibling;
+    //         if(thumbnail){
+    //             thumbnail.style.display = 'block';
+    //         }
+    //     }
+    // }
 
     const handleConfirm = () => {
         if (selectedVideo && selectedVideo.videoUrl) {
@@ -143,8 +143,8 @@ const VideoDisplay = () => {
                             return (
                                 <div className='video-display-item' 
                                     key={item.id}
-                                    onMouseEnter={()=> handleMouseEnter(item.id)}
-                                    onMouseLeave={()=> handleMouseLeave(item.id)}
+                                    // onMouseEnter={()=> handleMouseEnter(item.id)}
+                                    // onMouseLeave={()=> handleMouseLeave(item.id)}
                                     onClick={()=> handleVideoClick(item)}
                                     >
                                     <div className='video-thumbnail'>
